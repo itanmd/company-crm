@@ -1,0 +1,4 @@
+server:
+run the app:
+     > SET DEBUG=company-crm:* & npm start
+     or: DEBUG=company-crm:* npm start
