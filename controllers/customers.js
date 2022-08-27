@@ -85,6 +85,7 @@ module.exports = {
     updateCustomer: async function (req, res, next) {
         const reqBody = req.body;
         const { id } = req.params;
+        // http://localhost:3000/customers/:id
 
         const getCustomerSql =
             "SELECT * FROM `customers` WHERE id = ?"
@@ -115,12 +116,12 @@ module.exports = {
             }
 
             const sql =
-                "UPDATE customers(id, first_name, last_name, phone, email)" +
-                " VALUES(?,?,?,?,?);";
+                "UPDATE `customers` SET first_name = ?, last_name = ?, phone = ?, " +
+                "email = ? WHERE id = ?" 
 
             const result = await database.query(
                 sql,
-                [id, value.first_name, value.last_name, value.phone, value.email]
+                [value.first_name, value.last_name, value.phone, value.email, id]
             );
 
             res.json(id);
