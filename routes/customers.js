@@ -17,11 +17,10 @@ router.get('/details/:id', function (req, res, next) {
 });
 
 router.get('/', cm.customersList);
-router.get('/find', cm.findCustomer);
-// router.get   ('/details', cm.viewCustomerDetails);
-router.get   ('/export', cm.exportCustomers);
-// router.patch ('/', cm.updateCustomer);
 router.post  ('/', cm.addCustomer);
-// router.delete('/', cm.deleteCustomer);
+router.put('/:id', cm.updateCustomer);
+// router.delete('/:id', cm.deleteCustomer);
+
+
 
 module.exports = router;

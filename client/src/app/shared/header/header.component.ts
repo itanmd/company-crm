@@ -12,12 +12,12 @@ export class HeaderComponent implements OnInit {
   // userName = 'john';
   // today = new Date();
 
-  constructor() {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {}
 
-  // logout() {
-  //   this.authService.logout();
-  //   this.router.navigate(['login-component']);
-  // }
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['login-component']);
+  }
 }
