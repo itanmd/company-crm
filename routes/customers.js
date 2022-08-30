@@ -19,7 +19,7 @@ router.get('/details/:id', function (req, res, next) {
 router.get('/', cm.customersList);
 router.post  ('/', cm.addCustomer);
 router.put('/:id', cm.updateCustomer);
-// router.delete('/:id', cm.deleteCustomer);
+router.delete('/:id', cm.deleteCustomer);
 
 
 

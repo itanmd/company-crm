@@ -1,6 +1,4 @@
-<app-page-title [title]="'Customers'"></app-page-title>
-
-<div class="section-bg p-3">
+<div class="container mat-elevation-z8">
   <form [formGroup]="customerForm" (ngSubmit)="onSumbit()">
     <div class="row">
       <div class="col-2 mb-3">
@@ -46,57 +44,85 @@
       </div>
     </div>
   </form>
+  <div class="form">
+    <mat-form-field floatPlaceholder="never" color="accent">
+      <input matInput #filter placeholder="Customers" />
+    </mat-form-field>
+  </div>
 
-  <table class="table">
-    <thead>
-      <tr>
-        <th>No.</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th class="align-middle">Phone</th>
-        <th>Email</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let customer of customers; let i = index">
-        <td>{{ i + 1 }}</td>
-        <td>{{ customer.first_name }}</td>
-        <td>{{ customer.last_name }}</td>
-        <td>{{ customer.phone }}</td>
-        <td>{{ customer.email }}</td>
-        <td>
-          <button>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="currentColor"
-              class="bi bi-pencil-fill"
-              viewBox="0 0 16 16"
-            >
-              <path
-                d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"
-              />
-            </svg>
-          </button>
+  <mat-table #table [dataSource]="customers || []" matSort class="mat-cell">
+    ng update @angular/cli @angular/core
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
 
-          <button>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="currentColor"
-              class="bi bi-trash-fill"
-              viewBox="0 0 16 16"
-            >
-              <path
-                d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"
-              />
-            </svg>
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+    <!-- ID Column -->
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ row.id }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="first_name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >First Name</mat-header-cell
+      >
+      <mat-cell *matCellDef="let row"> {{ row.first_name }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="last_name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >Last Name</mat-header-cell
+      >
+      <mat-cell *matCellDef="let row"> {{ row.last_name }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="phone">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Phone</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{ row.phone }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Email</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{ row.email }}</mat-cell>
+    </ng-container>
+
+    <!-- actions -->
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef>
+        <button mat-icon-button color="primary">
+          <mat-icon aria-label="Example icon-button with a heart icon"
+            >add</mat-icon
+          >
+        </button>
+      </mat-header-cell>
+
+      <mat-cell *matCellDef="let row; let i = index">
+        <button mat-icon-button color="accent" (click)="startEdit(row)">
+          <mat-icon aria-label="Edit">edit</mat-icon>
+        </button>
+
+        <button mat-icon-button color="accent" (click)="deleteItem(row.id)">
+          <mat-icon aria-label="Delete">delete</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  </mat-table>
+
+  <div
+    class="no-results"
+    [style.display]="customers && customers.length == 0 ? '' : 'none'"
+  >
+    No results
+  </div>
+
+  <mat-paginator
+    #paginator
+    [length]="(customers && customers.length) || 0"
+    [pageIndex]="0"
+    [pageSize]="10"
+    [pageSizeOptions]="[5, 10, 25, 100]"
+  >
+  </mat-paginator>
 </div>

@@ -8,7 +8,7 @@ import {
   User,
   FilePath,
   Customer,
-  AddCustomer,
+  EditCustomer,
 } from '../shared/types';
 
 @Injectable({
@@ -28,17 +28,17 @@ export class ApiService {
     return this.GET<Array<Customer>>(`customers`);
   }
 
-  addCustomer(customer: AddCustomer): Observable<Customer> {
+  addCustomer(customer: Customer): Observable<Customer> {
     return this.POST<Customer>(`customers`, customer);
   }
 
-  // editCustomer(customer: AddCustomer, id: number): Observable<Customer> {
-  //   return this.PUT<Customer>(`customers/${id}`, customer);
-  // }
+  editCustomer(customer: EditCustomer): Observable<Customer> {
+    return this.PUT<Customer>(`customers/${customer.id}`, customer);
+  }
 
-  // deleteCustomer(id: number) {
-  //   return this.DELETE<Customer>(`customers/${id}`);
-  // }
+  deleteCustomer(id: number) {
+    return this.DELETE<Customer>(`customers/${id}`);
+  }
 
   login(details: Login): Observable<User> {
     return this.POST<User>(`login`, details);
@@ -76,10 +76,27 @@ export class ApiService {
     });
   }
 
+  PUT<T>(url: string, data: EditCustomer): Observable<T> {
+    return this.http.put<T>(`${environment.serverUrl}/${url}`, data, {
+      headers: {
+        'Content-Type': 'application/json',
+        'x-auth-token': this.token,
+      },
+    });
+  }
+
   POST<T>(url: string, data: object): Observable<T> {
     return this.http.post<T>(`${environment.serverUrl}/${url}`, data, {
       headers: {
         'Content-Type': 'application/json',
+        'x-auth-token': this.token,
+      },
+    });
+  }
+
+  DELETE<T>(url: string): Observable<T> {
+    return this.http.delete<T>(`${environment.serverUrl}/${url}`, {
+      headers: {
         'x-auth-token': this.token,
       },
     });

@@ -1,16 +1,17 @@
 export interface Customer {
-  id: number;
+  id?: number;
   first_name: string;
   last_name: string;
   phone: string;
   email: string;
 }
 
-export interface AddCustomer {
-  first_name?: string | null;
-  last_name?: string | null;
-  phone?: string | null;
-  email?: string | null;
+export interface EditCustomer {
+  id: number;
+  first_name?: string;
+  last_name?: string;
+  phone?: string;
+  email?: string;
 }
 
 export interface FilePath {

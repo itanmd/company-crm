@@ -78,10 +78,6 @@ module.exports = {
         }
     },
 
-
-
-
-    // todo: edit/update customer
     updateCustomer: async function (req, res, next) {
         const reqBody = req.body;
         const { id } = req.params;
@@ -122,6 +118,26 @@ module.exports = {
             const result = await database.query(
                 sql,
                 [value.first_name, value.last_name, value.phone, value.email, id]
+            );
+
+            res.json(id);
+        }
+        catch (err) {
+            console.log(err);
+            return;
+        }
+    },
+
+    deleteCustomer: async function (req, res, next) {
+        const { id } = req.params;
+
+        try {
+            const sql =
+                "DELETE FROM `customers` WHERE id = ?" 
+
+            await database.query(
+                sql,
+                [id]
             );
 
             res.json(id);
