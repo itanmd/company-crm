@@ -1,4 +1,10 @@
 <div class="container mat-elevation-z8">
+  <div class="form">
+    <mat-form-field floatPlaceholder="never" color="accent">
+      <input matInput #filter placeholder="Customers" />
+    </mat-form-field>
+  </div>
+
   <form [formGroup]="customerForm" (ngSubmit)="onSumbit()">
     <div class="row">
       <div class="col-2 mb-3">
@@ -44,11 +50,6 @@
       </div>
     </div>
   </form>
-  <div class="form">
-    <mat-form-field floatPlaceholder="never" color="accent">
-      <input matInput #filter placeholder="Customers" />
-    </mat-form-field>
-  </div>
 
   <mat-table #table [dataSource]="customers || []" matSort class="mat-cell">
     ng update @angular/cli @angular/core
@@ -117,12 +118,12 @@
     No results
   </div>
 
-  <mat-paginator
+  <!-- <mat-paginator
     #paginator
     [length]="(customers && customers.length) || 0"
     [pageIndex]="0"
     [pageSize]="10"
     [pageSizeOptions]="[5, 10, 25, 100]"
   >
-  </mat-paginator>
+  </mat-paginator> -->
 </div>
