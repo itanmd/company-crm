@@ -9,6 +9,7 @@ import {
   FilePath,
   Customer,
   EditCustomer,
+  DeleteCustomer,
 } from '../shared/types';
 
 @Injectable({
@@ -47,28 +48,6 @@ export class ApiService {
   register(user: RegisterUser): Observable<User> {
     return this.POST<User>(`register`, user);
   }
-
-  // deleteCustomer(id: number): Observable<Customer> {
-  //   return this.http.delete<Customer>(
-  //     ${environment.serverUrl}/customers?id=${id},
-  //     {
-  //       headers: { 'x-auth-token': this.token },
-  //     }
-  //   );
-  // }
-
-  // updateCustomer(customer: Customer): Observable<Customer> {
-  //   return this.http.put<Customer>(
-  //     ${environment.serverUrl}/customers,
-  //     customer,
-  //     {
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         'x-auth-token': this.token,
-  //       },
-  //     }
-  //   );
-  // }
 
   GET<T>(url: string): Observable<T> {
     return this.http.get<T>(`${environment.serverUrl}/${url}`, {

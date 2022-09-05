@@ -14,6 +14,14 @@ export interface EditCustomer {
   email?: string;
 }
 
+export interface DeleteCustomer {
+  id: number;
+  first_name?: string;
+  last_name?: string;
+  phone?: string;
+  email?: string;
+}
+
 export interface FilePath {
   name: string;
 }

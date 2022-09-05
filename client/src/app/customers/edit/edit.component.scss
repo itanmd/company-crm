@@ -17,3 +17,8 @@
   font-size: 16px;
   flex-grow: 1;
 }
+
+.form-control:focus {
+  border-color: #ffffff;
+  box-shadow: 0 0 0 0.2rem rgb(255, 255, 255);
+}

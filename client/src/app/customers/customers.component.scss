@@ -1,0 +1,21 @@
+.form-control {
+  font-size: 14px;
+}
+
+.form-control:focus {
+  border-color: #ff3f83;
+  box-shadow: 0 0 0 0.2rem rgba(255, 56, 130, 0.25);
+}
+
+input:-internal-autofill-selected {
+  background-color: aliceblue;
+}
+
+.mat-input-element:focus {
+  border-color: #ff3f83;
+  box-shadow: 0 0 0 0.2rem rgba(255, 56, 130, 0.25);
+}
+
+.mat-header-cell {
+  font-size: 14px;
+}

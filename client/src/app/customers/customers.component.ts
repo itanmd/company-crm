@@ -5,6 +5,8 @@ import { environment } from 'src/environments/environment';
 import { ApiService } from '../core/api.service';
 import { Customer, FilePath } from '../shared/types';
 import { EditDialogComponent } from './edit/edit.component';
+import { DeleteDialogComponent } from './delete/delete.component';
+import { any } from 'joi';
 
 @Component({
   selector: 'app-customers',
@@ -23,7 +25,6 @@ export class CustomersComponent implements OnInit {
   ];
   searchFieldValue!: string;
   searchTerm!: string;
-
   showForm = false;
   showNotification = false;
 
@@ -72,10 +73,26 @@ export class CustomersComponent implements OnInit {
     });
   }
 
-  deleteItem(customerId: number) {
-    this.apiService.deleteCustomer(customerId).subscribe({
-      next: (customer: Customer) => true,
-      error: (err) => console.error(err),
+  // deleteItem(customerId: number) {
+  //   this.apiService.deleteCustomer(customerId).subscribe({
+  //     next: (customer: Customer) => true,
+  //     error: (err) => console.error(err),
+  //   });
+  //   this.getCustomers();
+  // }
+
+  deleteItem(id: number) {
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      data: {
+        id,
+      },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === 1) {
+        const foundIndex = this.customers.findIndex((x) => x.id === id);
+        this.customers.splice(foundIndex, 1);
+        this.getCustomers();
+      }
     });
   }
 
@@ -93,10 +110,10 @@ export class CustomersComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (!this.customers) return;
       if (result === 1) {
-        // When using an edit things are little different, firstly we find record inside DataService by id
         const foundIndex = this.customers.findIndex(
           (x) => x.id === customer.id
         );
+        this.getCustomers();
       }
     });
   }

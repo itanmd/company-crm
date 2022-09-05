@@ -10,11 +10,16 @@ import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { CustomersComponent } from './customers.component';
 import { EditDialogComponent } from './edit/edit.component';
+import { DeleteDialogComponent } from './delete/delete.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
-  declarations: [CustomersComponent, EditDialogComponent],
+  declarations: [
+    CustomersComponent,
+    EditDialogComponent,
+    DeleteDialogComponent,
+  ],
   imports: [
     CommonModule,
     FormsModule,

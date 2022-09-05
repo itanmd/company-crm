@@ -1,10 +1,12 @@
 <div class="container mat-elevation-z8">
-  <div class="form">
+  <!-- <div class="form">
     <mat-form-field floatPlaceholder="never" color="accent">
-      <input matInput #filter placeholder="Customers" />
+      <input matInput #filter placeholder="First Name" />
     </mat-form-field>
-  </div>
-
+  </div> -->
+  <br />
+  <h4>Customers</h4>
+  <br />
   <form [formGroup]="customerForm" (ngSubmit)="onSumbit()">
     <div class="row">
       <div class="col-2 mb-3">
@@ -43,13 +45,14 @@
         <button
           [disabled]="!customerForm.valid"
           type="submit"
-          class="btn btn-primary"
+          class="btn btn-dark btn-sm"
         >
           Add Customer
         </button>
       </div>
     </div>
   </form>
+  <hr />
 
   <mat-table #table [dataSource]="customers || []" matSort class="mat-cell">
     ng update @angular/cli @angular/core
@@ -58,8 +61,8 @@
 
     <!-- ID Column -->
     <ng-container matColumnDef="id">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{ row.id }}</mat-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>No.</mat-header-cell>
+      <mat-cell *matCellDef="let row; index as idx">{{ idx + 1 }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="first_name">
@@ -88,13 +91,9 @@
 
     <!-- actions -->
     <ng-container matColumnDef="actions">
-      <mat-header-cell *matHeaderCellDef>
-        <button mat-icon-button color="primary">
-          <mat-icon aria-label="Example icon-button with a heart icon"
-            >add</mat-icon
-          >
-        </button>
-      </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >Actions</mat-header-cell
+      >mat-header-cell>
 
       <mat-cell *matCellDef="let row; let i = index">
         <button mat-icon-button color="accent" (click)="startEdit(row)">
@@ -117,6 +116,7 @@
   >
     No results
   </div>
+  <div><br /></div>
 
   <!-- <mat-paginator
     #paginator
